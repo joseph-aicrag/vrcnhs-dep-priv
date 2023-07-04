@@ -1,0 +1,244 @@
+/*#css for the navbar*/
+.bg-success {
+  background-color: #026223!important;
+}
+
+.nav-item:hover>a {
+  transform: scale(1.1);
+}
+
+
+/*-------------------------------Home page-----------------------------------------------------------------*/
+.card-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card {
+  background-color: #f2f2f2;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  flex: 1;
+  max-width: 75%;
+}
+
+.card-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.card-text {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.card-success {
+  background-color: #d9ead3;
+  color: #6b8e23;
+}
+
+.container {
+  padding: 0;
+}
+
+.chart-box {
+  width: 30%;
+  margin: 20px;
+  padding: 10px;
+  border: 1px solid black;
+  display: inline-block;
+  vertical-align: top;
+}
+
+
+/*------------------------------------------------------------------------------------------------*/
+
+
+.asteriskField {
+  display: none;
+}
+
+form.alert ul li {
+  list-style: none;
+}
+
+form .alert ul {
+  padding:0;
+  margin: 0;
+}
+
+
+body {
+    background: #ffffff;
+    height: 100%;
+    margin: 0px 0;
+}
+
+table,
+th,
+td {
+    border: 1px solid rgb(118, 200, 221);
+}
+
+th {
+    background-color: #026223;
+    color: white;
+}
+
+button {
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.table-container {
+    width: 1400px; /* set your desired width here */
+    overflow-x: auto; /* create a horizontal scrollbar if table is too wide */
+    margin: 0 auto; /* center align the container */
+  }
+
+  table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    padding: 4px; /* adjust to make the table more compact */
+  }
+
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 4px; /* adjust to make the table more compact */
+  }
+
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
+
+  .form-box {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 15px;
+    margin: 20px 0;
+    background-color: #759b6b;
+    display: inline-block;
+    width: 80%;
+    max-width: 600px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="number"],
+select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+button[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+
+/* FOR THE SEARCH BUTTON */
+/* FOR THE SEARCH BUTTON */
+.search-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10vh;
+}
+
+.search-form {
+  display: flex;
+  align-items: center;
+}
+
+.search-input {
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 500px; /* Adjust the width as needed */
+}
+
+.search-button {
+  padding: 8px 16px;
+  font-size: 16px;
+  background-color: #4040de;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  height: 41px;
+}
+
+.search-button:hover {
+  background-color: #4040de;
+}
+
+/* ALIGN THE SEARCH BUTTON AND SEARCH INPUT */
+.search-form {
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.search-input {
+  margin-right: 8px; /* Add margin to separate the input and button */
+}
+
+
+
+/*------------------------------------------------------------------------------------------------*/
+
+
+/* FOR THE FORMS in add_student*/
+
+label {
+  font-weight: 600;
+  color: #666;
+}
+body {
+background: #f1f1f1;
+}
+.box8{
+box-shadow: 0px 0px 5px 1px #999;
+}
+.mx-t3{
+margin-top: -3rem;
+}
+
+.birthday-input input[type="date"] {
+  /* Add your custom styles here */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px;
+  width: 100%;
+  min-height: auto;
+}
+
+#id_address {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px;
+  width: 100%;
+  min-height: auto;
+}
+
+
+.messae-text{
+  color: white;
+}

@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<h1>Edit Classroom</h1>
+<!--Updated edit classroom code wherein it will now accept the assigned option value for assigned teacher as none-->
+<form method="post">
+    {% csrf_token %}
+
+    <label for="classroom_name">Classroom Name:</label>
+    <input type="text" name="classroom_name" id="classroom_name" value="{{ classroom.classroom }}" required><br><br>
+
+    <label for="gradelevel_id">Grade level:</label>
+    <select name="gradelevel_id" id="gradelevel_id" required>
+        {% for gradelevel in gradelevels %}
+            <option value="{{ gradelevel.id }}" {% if gradelevel.id == current_gradelevel %}selected{% endif %}>{{ gradelevel.grade }}</option>
+        {% endfor %}
+    </select><br><br>
+
+    <label for="teacher_id">Assign Teacher:</label>
+    <select name="teacher_id" id="teacher_id">
+        <option value="-1" {% if classroom.teacher is None %}selected{% endif %}>None</option>
+        {% for teacher in teachers %}
+            <option value="{{ teacher.id }}" {% if teacher.id == classroom.teacher_id %}selected{% endif %}>{{ teacher.user.last_name }}, {{ teacher.user.first_name }}</option>
+        {% endfor %}
+    </select><br>
+
+    <input type="submit" value="Save">
+</form>
+
+
+
+  
+  
+
+{% endblock content %}

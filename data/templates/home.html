@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head_block %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+<!-- Load Chart.js from a CDN -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.css">
+<link rel="stylesheet" href="static/css/search.css">
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="search-container">
+      <form action="{% url 'students' %}" method="get" class="search-form">
+          <input type="text" name="query" placeholder="Student Name/LRN" required class="search-input">
+          <button type="submit" class="search-button">Search</button>
+      </form>
+    </div>
+    <!--<p>
+        <strong>Total users registered: </strong> {{ count }}
+    </p>-->
+
+    <!--<div class="card">
+        <h1><b>Total Student Population:</b></h1>
+        <div class="container">
+          <h2><b> {{ total_lrns }}</b></h2> 
+        </div>
+      </div>-->
+
+      <div class="card-container">
+        <!-- Card 1 -->
+        <div class="card">
+          <div class="card card-success">
+            <h1><b>Total students:</b></h1>
+            <h2>{{ total_students }}</h2>
+          </div>
+        </div>
+      
+        <!-- Card 2 -->
+        <div class="card">
+          <div class="card card-success">
+            <h1><b>Total Teachers:</b></h1>
+            <h2>{{ total_teachers }}</h2>
+          </div>
+        </div>
+      
+        <!-- Card 3 -->
+        <div class="card">
+          <div class="card card-success">
+            <h1><b>Total Classrooms:</b></h1>
+            <h2>{{ total_classrooms }}</h2>
+          </div>
+        </div>
+      </div>
+      
+      
+
+      <!--<h1>Student Gender Distribution</h1>-->
+    
+      <div class="chart-box">
+        <!-- Insert the first Plotly chart -->
+        <p>Generated on: {{ current_datetime }}</p>
+        {{ gender_chart_div|safe }}
+      </div>
+      <div class="chart-box">
+        <!-- Insert the second Plotly chart -->
+        <p>Generated on: {{ current_datetime }}</p>
+        {{ scholarship_chart_div|safe }}
+      </div>
+      <div class="chart-box">
+        <p>Generated on: {{ current_datetime }}</p>
+        {{ returnee_chart_div|safe }}
+      </div>
+       
+       <!-- <h1>Total students: {{ total_students }}</h1> -->
+
+       {% endblock %}
+      
+{% block js_block %}
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.bundle.min.js"></script>
+
+  <!-- Include Plotly.js library -->
+      <!-- Include Plotly.js library -->
+      <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+{% endblock %} 
+
+    
+
+
+
+

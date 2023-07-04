@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head_block %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+{% endblock %}
+
+
+{% block content %}
+
+<div class="search-container">
+  <form action="{% url 'teachers' %}" method="get" class="search-form">
+    <input type="text" name="query" placeholder="Teacher Name" required class="search-input">
+    <button type="submit" class="search-button">Search</button>
+  </form>
+</div>
+
+
+<div class="table-container">  
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Username</th>
+                <th>Account Type</th>
+                <th>Rank</th>
+                <th>Grade & Section</th>
+                <th>ACTIONS</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for teacher in teachers %}
+            <tr>
+                <td>{{ teacher.tid }}</td>
+                <td>{{ teacher.last_name }}, {{ teacher.first_name }} </td>
+                <td>{{ teacher.user.username }}</td>
+                <td>
+                  {% for group in teacher.user.groups.all %}
+                    {{ group }}
+                    {% if not forloop.last %}/{% endif %}
+                  {% endfor %}
+                </td>
+                <td>{{ teacher.rank }}</td>
+                <td>
+                  {% with classrooms=teacher.classroom_set.all %}
+                        {% if classrooms %}
+                            ({{ classrooms.0.gradelevel.grade }}) 
+                        {% endif %}
+                  {% endwith %}
+                  {% with classrooms=teacher.classroom_set.all %}
+                      {% if classrooms %}
+                          {{ classrooms.0.classroom }}
+                      {% endif %}
+                  {% endwith %}
+                </td>
+                <td>
+                    <button type="button" class="btn btn-primary view-button" data-bs-toggle="modal" data-bs-target="#teacherModal{{ teacher.id }}">
+                        View Profile
+                    </button>
+                    <a href="{% url 'edit_teacher' teacher.id %}" style="background-color: #4CAF50; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-weight: bold; box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);">
+                    EDIT Teacher
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% for teacher in teachers %}
+<!-- Modal - Teacher Profile -->
+<div class="modal fade" id="teacherModal{{ teacher.id }}" tabindex="-1" aria-labelledby="teacherModalLabel{{ teacher.id }}" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="teacherModalLabel{{ teacher.id }}">Teacher Profile</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="profile-section">
+          <h4>Teacher Information</h4>
+          <p><strong>Name:</strong> {{ teacher.first_name }} {{ teacher.last_name }} {{ teacher.middle_name }} </p>
+          <p><strong>Rank:</strong> {{ teacher.rank }}</p>
+          <p><strong>Group:</strong>                   
+            {% for group in teacher.user.groups.all %}
+              {{ group }}
+              {% if not forloop.last %}/{% endif %}
+            {% endfor %}</p>
+          <p><strong>Birthday:</strong> {{ teacher.birthday }}</p>
+          <!-- Add more teacher profile data as needed -->
+        </div>
+        
+        <!-- Add more sections for other teacher details -->
+        
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+
+<script>
+  const viewButtons = document.querySelectorAll('.view-button');
+
+  viewButtons.forEach((button) => {
+    button.addEventListener('click', (e) => {
+      e.preventDefault();
+      const target = button.dataset.bsTarget;
+      const modal = document.querySelector(target);
+      const backdrop = document.querySelector('.modal-backdrop');
+      modal.classList.add('show');
+      modal.style.display = 'block';
+      backdrop.classList.add('show');
+    });
+  });
+
+  const closeButtons = document.querySelectorAll('.btn-close[data-bs-dismiss="modal"]');
+  closeButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const modal = button.closest('.modal');
+      const backdrop = document.querySelector('.modal-backdrop');
+      modal.classList.remove('show');
+      modal.style.display = 'none';
+      backdrop.classList.remove('show');
+    });
+  });
+</script>
+
+
+
+
+<br>
+<!--<center><a href="{% url 'signup' %}" class="btn btn-primary">Add Teacher</a> </center>-->
+
+<!--<center><a href="/create" style="background-color: green; color: white; padding: 5px;">Add New Teacher</a></center> -->
+
+
+
+{% endblock %}

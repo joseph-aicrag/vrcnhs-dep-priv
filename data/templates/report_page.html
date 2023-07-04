@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head_block %}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.7.0/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+{% endblock %}
+
+{% block content %}
+<style>
+    .chart-box {
+      width: 30%;
+      margin: 20px;
+      padding: 10px;
+      border: 1px solid black;
+      display: inline-block;
+      vertical-align: top;
+    }
+  
+    .chart-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+  </style>
+  
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  
+  <!--<h1>Report Page</h1> -->
+  <form method="GET" action="{% url 'report_page' %}">
+    <select name="gradelevel">
+      <option value="all">All Grade Levels</option>
+      {% for gradelevel in gradelevels %}
+      <option value="{{ gradelevel.id }}" {% if selected_gradelevel == gradelevel.id %}selected{% endif %}>
+        {{ gradelevel.gradelevel }} {{ gradelevel.grade }}
+      </option>
+      {% endfor %}
+    </select>
+    <button type="submit">Filter</button>
+  </form>
+  
+  <p>Selected: {{ selected_gradelevel }}</p>
+  
+  <div class="chart-container">
+    <div class="chart-box">
+      <h2>Academic Strand Distribution</h2>
+      <p>Generated on: {{ current_datetime }}</p>
+      {% autoescape off %}
+      {{ strand_chart|safe }}
+      {% endautoescape %}
+    </div>
+    
+    <!--
+    <div class="chart-box">
+      <h2>Preferred Distance Modality</h2>
+      <p>Generated on: {{ current_datetime }}</p>
+      {% autoescape off %}
+      {{ modality_chart|safe }}
+      {% endautoescape %}
+    </div> -->
+  
+    <div class="chart-box">
+      <h2>Economic Status Distribution</h2>
+      <p>Generated on: {{ current_datetime }}</p>
+      {% autoescape off %}
+      {{ economic_chart|safe }}
+      {% endautoescape %}
+    </div>
+  
+    <div class="chart-box">
+      <h2>Religion Distribution</h2>
+      <p>Generated on: {{ current_datetime }}</p>
+      {% autoescape off %}
+      <div id="religion_chart">{{ religion_chart|safe }}</div>
+      {% endautoescape %}
+    </div>
+  
+    <div class="chart-box">
+      <h2>Dropout Status Distribution</h2>
+      <p>Generated on: {{ current_datetime }}</p>
+      {% autoescape off %}
+      <div id="dropout_chart">{{ dropout_chart|safe }}</div>
+      {% endautoescape %}
+    </div>
+  
+    <div class="chart-box">
+      <h2>Working Student Distribution</h2>
+      <p>Generated on: {{ current_datetime }}</p>
+      {% autoescape off %}
+      <div id="working_student_chart">{{ working_student_chart|safe }}</div>
+      {% endautoescape %}
+    </div>
+  
+    <div class="chart-box">
+      <h2>Scholarship Program Distribution</h2>
+      <p>Generated on: {{ current_datetime }}</p>
+      {% autoescape off %}
+      <div id="scholarship_chart">{{ scholarship_chart|safe }}</div>
+      {% endautoescape %}
+    </div>
+  
+    <div class="chart-box">
+      <h2>Gender Distribution</h2>
+      <p>Generated on: {{ current_datetime }}</p>
+      {% autoescape off %}
+      <div id="sex_chart">{{ sex_chart|safe }}</div>
+      {% endautoescape %}
+    </div>
+  
+    <div class="chart-box">
+      <h2>Returnee Distribution</h2>
+      <p>Generated on: {{ current_datetime }}</p>
+      {% autoescape off %}
+      <div id="returnee_chart">{{ returnee_chart|safe }}</div>
+      {% endautoescape %}
+    </div>
+  </div>
+  
+      
+
+
+{% endblock content %}

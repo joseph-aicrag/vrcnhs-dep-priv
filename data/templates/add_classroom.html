@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<h1>LIST OF SECTIONS</h1>
+
+<form method="POST" action="{% url 'add_classroom' %}">
+  {% csrf_token %}
+  <label for="classroom_name">Classroom Name:</label>
+  <input type="text" id="classroom_name" name="classroom_name">
+  
+  <label for="gradelevel_id">Grade Level:</label>
+  <select id="gradelevel_id" name="gradelevel_id">
+    {% for gradelevel in gradelevels %}
+      <option value="{{ gradelevel.id }}">{{ gradelevel.grade }}</option>
+    {% endfor %}
+  </select>
+  
+  <label for="teacher_id">Assign Teacher:</label>
+  <select name="teacher_id" id="teacher_id">
+      <option value="">None</option>
+      {% for teacher in teachers %}
+      <option value="{{ teacher.id }}">{{ teacher.last_name }}, {{ teacher.first_name }}</option>
+
+      {% endfor %}
+  </select><br><br>
+
+  <button type="submit">Add Classroom</button>
+</form>
+
+  
+  
+
+  
+  
+
+{% endblock content %}
