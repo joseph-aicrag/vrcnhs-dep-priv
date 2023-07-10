@@ -5,4 +5,4 @@ setTimeout(function()
 
 {
     message_timeout.style.display = "none";
-}, 6000);
+}, 9000);

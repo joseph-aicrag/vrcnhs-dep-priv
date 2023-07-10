@@ -26,6 +26,21 @@
   Add New Student
 </a>
 </center>
+<br>
+
+{% for message in messages %}
+
+  {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+
+    <p id="message-timer" class="alert alert-success float-center text-center message-text">{{message}}</p>
+
+  {% elif message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+    <p id="message-timer" class="alert alert-danger float-center text-center message-text">{{ message }}</p>
+
+  {% endif %}
+
+{% endfor %}
+
 
 
 <br>
@@ -61,7 +76,7 @@
       </tbody>
     </table>
   </div>
-  
+  <script src="{% static 'js/script.js' %}"></script>
   {% for student in students %}
   <!-- Modal - Student Profile -->
   <div class="modal fade" id="studentModal{{ student.id }}" tabindex="-1" aria-labelledby="studentModalLabel{{ student.id }}" aria-hidden="true">

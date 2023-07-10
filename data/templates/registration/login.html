@@ -13,24 +13,25 @@
         <div class="card">
             <img src="{% static "images/logo.png" %}" alt="login" />
             <div class="card-body">
-            <h3 >VRCNHS</h1>
+
+                    <!-- Notuification for when a new account is made successfully --> 
+                    
+                    {% for message in messages %}
+
+                        {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                        <br> 
+                            <p id="message-timer" class="alert alert-success float-center text-center message-text">{{message}}</p>
+                        <br>
+                        {% endif %}
+
+                    {% endfor %}
+
+
             <h2>Log In</h2>
                 <form method = "post" novalidate>
                     {% csrf_token %}
                     {{ form|crispy }}
                     <button type = "submit" class="btn btn-primary">Log In</button>
-
-                    <br> <br>
-
-                    {% for message in messages %}
-
-                        {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
-
-                            <p id="message-timer" class="alert alert-success float-center text-center message-text">{{message}}</p>
-                        
-                        {% endif %}
-
-                    {% endfor %}
 
 
                 </form>

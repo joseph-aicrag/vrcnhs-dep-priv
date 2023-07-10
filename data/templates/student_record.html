@@ -22,7 +22,7 @@
                 <th>SECTION</th>
                 <th>LAST UPDATED</th>
                 <th>EDITED BY</th>
-                <th>EDIT TYPE</th>
+                <th>ACTION</th>
             </tr>
         </thead>
         <tbody>
@@ -41,7 +41,7 @@
                           EDITED
                         {% elif record.history_type == '+' %}
                           ADDED
-                        {% elif change.history_type == '-' %}
+                        {% elif record.history_type == '-' %}
                           DELETED
                         {% endif %}
                       </td>

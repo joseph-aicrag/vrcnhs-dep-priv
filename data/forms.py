@@ -4,6 +4,7 @@ from data.models import Student, Teacher, Classroom
 from django.contrib.auth.models import User, Group
 from datetime import date
 from django.contrib.auth.forms import UserCreationForm
+from django.forms import DateInput
 
 class StudentForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -53,7 +54,7 @@ class AdminTeacherStudentForm(forms.ModelForm):
         fields = '__all__'
         
 class TeacherSignupForm(UserCreationForm):
-    birthday = forms.DateField(required=True)
+    birthday = forms.DateField(widget=DateInput(attrs={'type': 'date'}), required=True)
     tid = forms.CharField(max_length=30, required=True)
     last_name = forms.CharField(max_length=30, required=True)
     first_name = forms.CharField(max_length=30, required=True)
@@ -62,7 +63,7 @@ class TeacherSignupForm(UserCreationForm):
 
     class Meta(UserCreationForm.Meta):
         model = User
-        fields = ('first_name', 'last_name','middle_name', 'username', 'password1', 'password2')
+        fields = ('first_name', 'last_name','middle_name', 'username', 'password1', 'password2', 'birthday')
 
     def save(self, commit=True):
         user = super().save(commit=False)
@@ -119,6 +120,8 @@ class TeacherForm(forms.ModelForm):
         # Update the associated user model
         user = teacher.user
         user.username = username
+        user.first_name = teacher.first_name  # Update the first name
+        user.last_name = teacher.last_name  # Update the last name
         if password:
             user.set_password(password)
         if commit:

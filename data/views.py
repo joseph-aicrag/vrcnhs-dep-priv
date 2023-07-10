@@ -174,6 +174,8 @@ def classroom_detail(request, classroom_id): # this is for the individual classr
 def teachers_page(request):
         return render(request,"view_teachers.html")  
 
+@login_required
+@admin_only
 def edit_teacher(request, teacher_id):
     teacher = Teacher.objects.get(id=teacher_id)
     if request.method == 'POST':
@@ -206,6 +208,7 @@ def add_student(request):
             if form.is_valid():
                 form.save()
                 print(f"Student added: {form.instance}")  # Print the saved student instance
+                messages.success(request, "Student Added Successfully") # Notify user of successful Creation of student
                 return redirect("user_page")
         else:
             form = StudentForm(teacher=teacher, is_admin=is_admin)
@@ -217,6 +220,7 @@ def add_student(request):
             if form.is_valid():
                 form.save()
                 print(f"Student added: {form.instance}")  # Print the saved student instance
+                messages.success(request, "Student Added Successfully") # Notify user of successful Creation of student
                 return redirect("students")
         else:
             form = StudentForm()
@@ -229,10 +233,19 @@ def add_student(request):
 
 
 
+@login_required
 def destroy(request, id):
     student = Student.objects.get(id=id)
     student.delete()
-    return redirect("students")
+    messages.error(request, "Student Deleted", extra_tags='danger')  # Set extra_tags to 'danger' for red color
+    
+    # Check if user belongs to the "TEACHER" group
+    if request.user.groups.filter(name='TEACHER').exists():
+        # Redirect to "user_page" if user is a teacher
+        return redirect("user_page")
+    else:
+        # Redirect to "students" if user is not a teacher
+        return redirect("students")
 
 @login_required
 def edit(request, id):
@@ -242,7 +255,14 @@ def edit(request, id):
         if form.is_valid():
             form.save()
             print(f"Student edited: {student}")  # Print the edited student object
-            return redirect("students")
+            messages.success(request, "Student Updated Successfully") # Notify user of successful UPDATES of student
+            # Check if user belongs to the "TEACHER" group
+            if request.user.groups.filter(name='TEACHER').exists():
+                # Redirect to "user_page" if user is a teacher
+                return redirect("user_page")
+            else:
+                # Redirect to "students" if user is not a teacher
+                return redirect("students")
     else:
         form = StudentForm(instance=student)
     context = {'form': form, 'student': student}
@@ -250,7 +270,7 @@ def edit(request, id):
     return render(request, 'edit.html', context)
 
 
-
+@login_required(login_url='login')
 def update(request, id):
     student = Student.objects.get(id=id)
     form = StudentForm(instance=student)
@@ -259,6 +279,7 @@ def update(request, id):
         if form.is_valid():
             form.save()
             print("Debug Statement: Student Updated -", student.name)  # Debug statement
+            messages.success(request, "Student Updated Successfully") # Notify user of successful UPDATES of student
             return redirect("students")
     context = {'form': form, 'student': student}
     return render(request, 'update.html', context)
@@ -268,7 +289,7 @@ def update(request, id):
 #######################################################################################
 
 # this is the search function
-
+@login_required(login_url='login')
 def students_page(request):
     form = StudentSearchForm(request.GET or None)
     students = Student.objects.all().order_by('last_name', 'first_name')
@@ -287,6 +308,8 @@ def students_page(request):
         
     return render(request, 'view_students.html', {'form': form, 'students': students})
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['ADMIN'])
 def teachers_page(request):
     form = TeacherSearchForm(request.GET or None)
     teachers = Teacher.objects.all()
@@ -540,6 +563,8 @@ def add_classroom(request):
 
 
 ############################### this is for editting the classrooms and their assigned teacher
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['ADMIN'])
 def edit_classroom(request, classroom_id):
     try:
         # Retrieve the classroom object based on the provided classroom_id
@@ -605,7 +630,8 @@ def edit_classroom(request, classroom_id):
 
 
 ############################### this is for deleting classrooms
-
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['ADMIN'])
 def delete_classroom(request, classroom_id):
     classroom = get_object_or_404(Classroom, id=classroom_id)
 
@@ -617,8 +643,8 @@ def delete_classroom(request, classroom_id):
     return redirect('grade_sections')
 
 ########################### STUDENT RECORD
-
-@login_required
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['ADMIN'])
 def student_record(request):
     # Get the desired fields from the StudentRecord model
     #student_records = StudentRecord.objects.values('LRN', 'last_name', 'first_name', 'gradelevel__grade_level', 'classroom__section')

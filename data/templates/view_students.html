@@ -10,7 +10,7 @@
 {% block content %}
 <center>
   <h1>ALL STUDENTS OF VRCNHS</h1>
-  
+
 <div class="search-container">
     <form action="{% url 'students' %}" method="get" class="search-form">
         <input type="text" name="query" placeholder="Student Name/LRN" required class="search-input">
@@ -24,6 +24,19 @@
   </a>
 </center>
 <br>
+
+{% for message in messages %}
+
+  {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+
+    <p id="message-timer" class="alert alert-success float-center text-center message-text">{{message}}</p>
+
+  {% elif message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+    <p id="message-timer" class="alert alert-danger float-center text-center message-text">{{ message }}</p>
+
+  {% endif %}
+
+{% endfor %}
 
 <div class="table-container">
   <table id="studentTable" class="table table-striped">
@@ -58,6 +71,7 @@
     </tbody>
   </table>
 </div>
+<script src="{% static 'js/script.js' %}"></script>
 
 <div id="paginationButtons" class="d-flex justify-content-center mt-3">
   <button id="prevButton" class="btn btn-primary me-2" disabled>Previous</button> 
@@ -202,6 +216,7 @@
       backdrop.classList.remove('show');
     });
   });
+
 </script>
 
 {% endblock %}
