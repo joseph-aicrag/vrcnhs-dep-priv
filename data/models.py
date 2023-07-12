@@ -72,7 +72,7 @@ class Student(models.Model):
     sex = models.CharField(max_length=2, choices=sex_student)
     birth_place = models.CharField(max_length=20)
     mother_tongue = models.CharField(max_length=20)
-    address = models.TextField()
+    address = models.CharField(max_length=200)
 
     father_name = models.CharField(max_length=120) # this section is for the parents and guardian
     father_contact = models.IntegerField()
@@ -83,7 +83,6 @@ class Student(models.Model):
     last_grade_level = models.IntegerField() # this is for the returning learner
     last_school_attended = models.CharField(max_length=30)
     last_schoolyear_completed = models.CharField(max_length=4)
-    school_id_number = models.IntegerField()
     academic_strand = (
     ('A', 'STEM'),
     ('B', 'BAM'),
