@@ -92,7 +92,7 @@ button {
 }
 
 .table-container {
-    width: 1400px; /* set your desired width here */
+    width: 90%; /* set your desired width here */
     overflow-x: auto; /* create a horizontal scrollbar if table is too wide */
     margin: 0 auto; /* center align the container */
   }
