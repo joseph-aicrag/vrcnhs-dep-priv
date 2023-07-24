@@ -1,42 +1,40 @@
-{% extends 'base.html' %}
-{% load static %}
-
-
-{% block head_block %}
+{% extends 'base.html' %} {% load static %} {% block head_block %}
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.7.0/dist/js/bootstrap.bundle.min.js"></script>
-<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
-{% endblock %}
-
-{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+{% endblock %} {% block content %}
 <center>
   <h1>ALL STUDENTS OF VRCNHS</h1>
 
-<div class="search-container">
+  <div class="search-container">
     <form action="{% url 'students' %}" method="get" class="search-form">
-        <input type="text" name="query" placeholder="Student Name/LRN" required class="search-input">
-        <button type="submit" class="search-button">Search</button>
+      <input
+        type="text"
+        name="query"
+        placeholder="Student Name/LRN"
+        required
+        class="search-input"
+      />
+      <button type="submit" class="search-button">Search</button>
     </form>
-</div>
-<br>
+  </div>
+  <br />
 
-  <a href="{% url 'add_student' %}" style="background-color: #4CAF50; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-weight: bold; box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);">
+  <a
+    href="{% url 'add_student' %}"
+    style="
+      background-color: #4caf50;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+    "
+  >
     Add New Student
   </a>
 </center>
-<br>
-
-{% for message in messages %}
-
-  {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
-
-    <p id="message-timer" class="alert alert-success float-center text-center message-text">{{message}}</p>
-
-  {% elif message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
-    <p id="message-timer" class="alert alert-danger float-center text-center message-text">{{ message }}</p>
-
-  {% endif %}
-
-{% endfor %}
+<br />
 
 <div class="table-container">
   <table id="studentTable" class="table table-striped">
@@ -49,70 +47,118 @@
         <th>Age</th>
         <th>Grade & Section</th>
         <th>Semester</th>
-        
+        <th>Grade</th>
       </tr>
     </thead>
     <tbody>
       {% for student in students %}
       <tr>
         <td>
-          <button type="button" class="btn btn-primary view-button" data-bs-toggle="modal" data-bs-target="#studentModal{{ student.id }}">
+          <button
+            type="button"
+            class="btn btn-primary view-button"
+            data-bs-toggle="modal"
+            data-bs-target="#studentModal{{ student.id }}"
+          >
             View Profile
-          </button> 
+          </button>
         </td>
         <td>{{ student.LRN }}</td>
-        <td>{{ student.last_name }} {{ student.suffix_name }}, {{ student.first_name }} {{ student.middle_name }} </td>
+        <td>
+          {{ student.last_name }} {{ student.suffix_name }}, {{
+          student.first_name }} {{ student.middle_name }}
+        </td>
         <td>{{ student.religion }}</td>
         <td>{{ student.age }}</td>
         <td>{{ student.classroom }}</td>
         <td>{{ student.get_sem_display }}</td>
+        <td>{{ student.general_average }}</td>
       </tr>
       {% endfor %}
     </tbody>
   </table>
 </div>
-<script src="{% static 'js/script.js' %}"></script>
 
 <div id="paginationButtons" class="d-flex justify-content-center mt-3">
-  <button id="prevButton" class="btn btn-primary me-2" disabled>Previous</button> 
-  
+  <button id="prevButton" class="btn btn-primary me-2" disabled>
+    Previous
+  </button>
+
   <button id="nextButton" class="btn btn-primary">Next</button>
 </div>
 
-
 {% for student in students %}
 <!-- Modal - Student Profile -->
-<div class="modal fade" id="studentModal{{ student.id }}" tabindex="-1" aria-labelledby="studentModalLabel{{ student.id }}" aria-hidden="true">
+<div
+  class="modal fade"
+  id="studentModal{{ student.id }}"
+  tabindex="-1"
+  aria-labelledby="studentModalLabel{{ student.id }}"
+  aria-hidden="true"
+>
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="studentModalLabel{{ student.id }}">Student Profile</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <h5 class="modal-title" id="studentModalLabel{{ student.id }}">
+          Student Profile
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
       </div>
       <div class="modal-body">
         <div class="profile-section">
           <h4>Student Information</h4>
-          <p><strong>Name:</strong> {{ student.first_name }} {{ student.last_name }}</p>
+          <p>
+            <strong>Name:</strong> {{ student.first_name }} {{ student.last_name
+            }}
+          </p>
           <p><strong>Age:</strong> {{ student.age }}</p>
-          <p><strong>Grade:</strong> {{ student.classroom }}</p>
-          <p><strong>Academic Strand:</strong> {{ student.get_strand_display }}</p>
+          <p><strong>Classroom:</strong> {{ student.classroom }}</p>
+          <p><strong>Grade:</strong> {{student.general_average}}</p>
+          <p>
+            <strong>Academic Strand:</strong> {{ student.get_strand_display }}
+          </p>
           <p><strong>Address:</strong> {{ student.address }}</p>
           <p><strong>Gender:</strong> {{ student.sex }}</p>
           <p><strong>Birthday:</strong> {{ student.birthday }}</p>
-          <p><strong>Religion:</strong> {{ student.religion }} (Other Religion: {{ student.other_religion }})</p>
+          <p>
+            <strong>Religion:</strong> {{ student.religion }} (Other Religion:
+            {{ student.other_religion }})
+          </p>
           <p><strong>Mother Tongue:</strong> {{ student.mother_tongue }}</p>
           <!--<p><strong>Preferred Learning Modality:</strong> {{ student.modality_options }}</p> -->
-          <p><strong>Economic Range:</strong> {{ student.get_economic_range_display }}</p>
-          <p><strong>Returnee Student:</strong> {{ student.get_is_returnee_display }}</p>
-          <p><strong>Working Student:</strong> {{ student.get_is_a_working_student_display }}</p>
-          <p><strong>Drop Out:</strong> {{ student.get_is_a_dropout_display }}</p>
-          <p><strong>4Ps Scholar:</strong> {{ student.get_is_a_four_ps_scholar_display }}</p>
+          <p>
+            <strong>Economic Range:</strong> {{
+            student.get_economic_range_display }}
+          </p>
+          <p>
+            <strong>Returnee Student:</strong> {{
+            student.get_is_returnee_display }}
+          </p>
+          <p>
+            <strong>Working Student:</strong> {{
+            student.get_is_a_working_student_display }}
+          </p>
+          <p>
+            <strong>Drop Out:</strong> {{ student.get_is_a_dropout_display }}
+          </p>
+          <p>
+            <strong>4Ps Scholar:</strong> {{
+            student.get_is_a_four_ps_scholar_display }}
+          </p>
           <!-- Add more student profile data as needed -->
         </div>
-        
+
         <div class="profile-section">
           <h4>Parents Information</h4>
-          <p><strong>Father's Name:</strong> {{ student.father_name }} {{ student.father_contact }}</p>
+          <p>
+            <strong>Father's Name:</strong> {{ student.father_name }} {{
+            student.father_contact }}
+          </p>
           <p><strong>Father Contact #:</strong> {{ student.father_contact }}</p>
           <p><strong>Mother's Name:</strong> {{ student.mother_name }}</p>
           <p><strong>Mother Contact #:</strong> {{ student.mother_contact }}</p>
@@ -120,8 +166,15 @@
         </div>
       </div>
       <div class="modal-footer">
-        <a href="{% url 'edit_student' student.id %}" class="btn btn-secondary">Edit</a>
-        <a href="{% url 'delete_student' student.id %}" class="btn btn-danger" title="Delete" onclick="return confirm('Are you sure you want to delete this item?');">
+        <a href="{% url 'edit_student' student.id %}" class="btn btn-secondary"
+          >Edit</a
+        >
+        <a
+          href="{% url 'delete_student' student.id %}"
+          class="btn btn-danger"
+          title="Delete"
+          onclick="return confirm('Are you sure you want to delete this item?');"
+        >
           Delete
         </a>
       </div>
@@ -130,58 +183,48 @@
 </div>
 {% endfor %}
 
-
-
-
-  
-  
-  
-
-
-<br>
-
+<br />
 
 <center><span id="pageNumber"></span></center>
-
 
 <script>
   const studentsPerPage = 6;
   let currentPage = 1;
 
   function displayStudents() {
-    const tableRows = document.querySelectorAll('#studentTable tbody tr');
+    const tableRows = document.querySelectorAll("#studentTable tbody tr");
     const totalPages = Math.ceil(tableRows.length / studentsPerPage);
     const startIndex = (currentPage - 1) * studentsPerPage;
     const endIndex = startIndex + studentsPerPage;
-    const pageNumberElement = document.getElementById('pageNumber');
+    const pageNumberElement = document.getElementById("pageNumber");
     pageNumberElement.textContent = `Page ${currentPage} of ${totalPages}`;
-  
+
     tableRows.forEach((row, index) => {
       if (index >= startIndex && index < endIndex) {
-        row.style.display = 'table-row';
+        row.style.display = "table-row";
       } else {
-        row.style.display = 'none';
+        row.style.display = "none";
       }
     });
 
-    const prevButton = document.getElementById('prevButton');
-    const nextButton = document.getElementById('nextButton');
+    const prevButton = document.getElementById("prevButton");
+    const nextButton = document.getElementById("nextButton");
 
     prevButton.disabled = currentPage === 1;
     nextButton.disabled = currentPage === totalPages;
   }
 
-  const prevButton = document.getElementById('prevButton');
-  prevButton.addEventListener('click', () => {
+  const prevButton = document.getElementById("prevButton");
+  prevButton.addEventListener("click", () => {
     if (currentPage > 1) {
       currentPage--;
       displayStudents();
     }
   });
 
-  const nextButton = document.getElementById('nextButton');
-  nextButton.addEventListener('click', () => {
-    const tableRows = document.querySelectorAll('#studentTable tbody tr');
+  const nextButton = document.getElementById("nextButton");
+  nextButton.addEventListener("click", () => {
+    const tableRows = document.querySelectorAll("#studentTable tbody tr");
     const totalPages = Math.ceil(tableRows.length / studentsPerPage);
 
     if (currentPage < totalPages) {
@@ -192,31 +235,32 @@
 
   displayStudents();
 
-  const viewButtons = document.querySelectorAll('.view-button');
+  const viewButtons = document.querySelectorAll(".view-button");
 
   viewButtons.forEach((button) => {
-    button.addEventListener('click', (e) => {
+    button.addEventListener("click", (e) => {
       e.preventDefault();
       const target = button.dataset.bsTarget;
       const modal = document.querySelector(target);
-      const backdrop = document.querySelector('.modal-backdrop');
-      modal.classList.add('show');
-      modal.style.display = 'block';
-      backdrop.classList.add('show');
+      const backdrop = document.querySelector(".modal-backdrop");
+      modal.classList.add("show");
+      modal.style.display = "block";
+      backdrop.classList.add("show");
     });
   });
 
-  const closeButtons = document.querySelectorAll('.btn-close[data-bs-dismiss="modal"]');
+  const closeButtons = document.querySelectorAll(
+    '.btn-close[data-bs-dismiss="modal"]'
+  );
   closeButtons.forEach((button) => {
-    button.addEventListener('click', () => {
-      const modal = button.closest('.modal');
-      const backdrop = document.querySelector('.modal-backdrop');
-      modal.classList.remove('show');
-      modal.style.display = 'none';
-      backdrop.classList.remove('show');
+    button.addEventListener("click", () => {
+      const modal = button.closest(".modal");
+      const backdrop = document.querySelector(".modal-backdrop");
+      modal.classList.remove("show");
+      modal.style.display = "none";
+      backdrop.classList.remove("show");
     });
   });
-
 </script>
 
 {% endblock %}

@@ -1,6 +1,6 @@
 /*#css for the navbar*/
 .bg-success {
-  background-color: #026223!important;
+  background-color: #026223 !important;
 }
 
 .nav-item:hover>a {
@@ -64,92 +64,98 @@ form.alert ul li {
 }
 
 form .alert ul {
-  padding:0;
+  padding: 0;
   margin: 0;
 }
 
 
 body {
-    background: #ffffff;
-    height: 100%;
-    margin: 0px 0;
+  background: #ffffff;
+  height: 100%;
+  margin: 0px 0;
 }
 
 table,
 th,
 td {
-    border: 1px solid rgb(118, 200, 221);
+  border: 1px solid rgb(118, 200, 221);
 }
 
 th {
-    background-color: #026223;
-    color: white;
+  background-color: #026223;
+  color: white;
 }
 
 button {
-    border-radius: 12px;
-    cursor: pointer;
+  border-radius: 12px;
+  cursor: pointer;
 }
 
 .table-container {
-    width: 90%; /* set your desired width here */
-    overflow-x: auto; /* create a horizontal scrollbar if table is too wide */
-    margin: 0 auto; /* center align the container */
-  }
+  width: 1400px;
+  /* set your desired width here */
+  overflow-x: auto;
+  /* create a horizontal scrollbar if table is too wide */
+  margin: 0 auto;
+  /* center align the container */
+}
 
-  table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-    padding: 4px; /* adjust to make the table more compact */
-  }
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  padding: 4px;
+  /* adjust to make the table more compact */
+}
 
-  td, th {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 4px; /* adjust to make the table more compact */
-  }
+td,
+th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 4px;
+  /* adjust to make the table more compact */
+}
 
-  tr:nth-child(even) {
-    background-color: #dddddd;
-  }
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
 
-  .form-box {
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 15px;
-    margin: 20px 0;
-    background-color: #759b6b;
-    display: inline-block;
-    width: 80%;
-    max-width: 600px;
+.form-box {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 15px;
+  margin: 20px 0;
+  background-color: #759b6b;
+  display: inline-block;
+  width: 80%;
+  max-width: 600px;
 }
 
 label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
 }
 
 input[type="text"],
 input[type="email"],
 input[type="number"],
 select {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
 }
 
 button[type="submit"] {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
 
@@ -172,7 +178,8 @@ button[type="submit"] {
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  width: 500px; /* Adjust the width as needed */
+  width: 500px;
+  /* Adjust the width as needed */
 }
 
 .search-button {
@@ -197,7 +204,8 @@ button[type="submit"] {
 }
 
 .search-input {
-  margin-right: 8px; /* Add margin to separate the input and button */
+  margin-right: 8px;
+  /* Add margin to separate the input and button */
 }
 
 
@@ -211,14 +219,17 @@ label {
   font-weight: 600;
   color: #666;
 }
+
 body {
-background: #f1f1f1;
+  background: #f1f1f1;
 }
-.box8{
-box-shadow: 0px 0px 5px 1px #999;
+
+.box8 {
+  box-shadow: 0px 0px 5px 1px #999;
 }
-.mx-t3{
-margin-top: -3rem;
+
+.mx-t3 {
+  margin-top: -3rem;
 }
 
 .birthday-input input[type="date"] {
@@ -239,6 +250,24 @@ margin-top: -3rem;
 }
 
 
-.messae-text{
+.messae-text {
   color: white;
+}
+
+
+/* Styles for the custom close button */
+.btn-close {
+  font-size: 24px;
+  /* Increase the font size to make the button larger */
+  font-weight: bold;
+  /* Optional: add bold font for better visibility */
+  color: #000;
+  /* Optional: change the color of the close button */
+  /* Add any other styling you want for the close button, like padding, margins, etc. */
+}
+
+/* Optional: Hover effect for the custom close button */
+.btn-close:hover {
+  cursor: pointer;
+  /* Add any additional styles you want when hovering over the close button */
 }
